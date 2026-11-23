@@ -25,6 +25,10 @@ Dépôt GitHub : <https://github.com/benoitvincent013-ship-it/TP-Docker-Multi-St
   maintenant »), 5 critères sont testés dans le navigateur — origine HTTP/localhost, fichiers
   compilés chargés, DOM de l'application et de la checklist, persistance `localStorage` et
   réponse HTTP 200 — puis cochés avec le statut **« Auto-vérifié OK »** et un détail lisible ;
+- garder le panneau d'auto-vérification limité aux tests automatiques (« 5 / 5 critères
+  auto-vérifiés ») et renvoyer vers le reste par des liens de catégorie (« 6 critères à valider
+  manuellement : Image Docker multi-stage · Conteneur & tests · Dépôt GitHub »), qui font défiler
+  la page jusqu'à la catégorie concernée ;
 - valider **d'un seul clic** les 10 critères non observables depuis le navigateur (Docker
   Desktop, système de fichiers, GitHub) : le clic sur le texte du critère coche/décoche la case
   et passe le statut à « Validé manuellement » ;

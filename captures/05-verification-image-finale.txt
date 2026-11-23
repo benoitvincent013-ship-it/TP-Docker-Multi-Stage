@@ -1,22 +1,22 @@
 === Conteneur ===
 NAMES     IMAGE                    STATUS                    PORTS
-mon-app   mon-app-multistage:1.0   Up 25 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+mon-app   mon-app-multistage:1.0   Up 36 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
 
 === Fichiers statiques dans l'image finale (/usr/share/nginx/html) ===
 /usr/share/nginx/html:
 total 20
-drwxr-xr-x    1 root     root          4096 Nov 23 10:55 .
+drwxr-xr-x    1 root     root          4096 Nov 23 12:02 .
 drwxr-xr-x    1 root     root          4096 Apr 16  2025 ..
-drwxr-xr-x    2 root     root          4096 Nov 23 10:55 assets
--rwxr-xr-x    1 root     root           249 Nov 23 10:55 favicon.svg
--rw-r--r--    1 root     root           677 Nov 23 10:55 index.html
+drwxr-xr-x    2 root     root          4096 Nov 23 12:02 assets
+-rwxr-xr-x    1 root     root           249 Nov 23 12:02 favicon.svg
+-rw-r--r--    1 root     root           677 Nov 23 12:02 index.html
 
 /usr/share/nginx/html/assets:
 total 176
-drwxr-xr-x    2 root     root          4096 Nov 23 10:55 .
-drwxr-xr-x    1 root     root          4096 Nov 23 10:55 ..
--rw-r--r--    1 root     root          8828 Nov 23 10:55 index-CFM5ytau.css
--rw-r--r--    1 root     root        158452 Nov 23 10:55 index-DM1PTL_O.js
+drwxr-xr-x    2 root     root          4096 Nov 23 12:02 .
+drwxr-xr-x    1 root     root          4096 Nov 23 12:02 ..
+-rw-r--r--    1 root     root        158759 Nov 23 12:02 index-BCN4c-Dp.js
+-rw-r--r--    1 root     root          9178 Nov 23 12:02 index-utQLk2r3.css
 
 === Absence de Node, npm, node_modules et sources ===
 node ABSENT (OK)

@@ -170,7 +170,7 @@ export default function Checklist() {
       points,
       tousOk: points.every((point) => point.ok),
       rappel: parServeurHttp
-        ? "Page servie par le conteneur Nginx (http://localhost:8080). Les critères Docker, fichiers et GitHub restent à valider d'un clic ci-dessous."
+        ? ""
         : "Ouvre la page depuis le conteneur : docker run -d --name mon-app -p 8080:80 mon-app-multistage:1.0 puis http://localhost:8080.",
     });
   }, []);
@@ -225,6 +225,13 @@ export default function Checklist() {
   const faits = coches.length + criteresAutoOk;
   const progression = Math.round((faits / NOMBRE_CRITERES) * 100);
   const restantsManuels = NOMBRE_CRITERES - NOMBRE_AUTO - coches.length;
+  // Catégories qui contiennent encore au moins un critère manuel non coché :
+  // le panneau d'auto-vérification y renvoie par un lien.
+  const categoriesManuelles = CATEGORIES.filter((categorie) =>
+    categorie.elements.some(
+      (element) => !CRITERES_AUTO[element.id] && !coches.includes(element.id)
+    )
+  );
 
   return (
     <section className="verification" aria-labelledby="verification-titre">
@@ -289,8 +296,7 @@ export default function Checklist() {
                 <span className="controle__origine">{controle.origine}</span>
               </div>
               <p className="controle__resume">
-                {criteresAutoOk} / {NOMBRE_AUTO} critères auto-vérifiés · {restantsManuels} à
-                valider manuellement
+                {criteresAutoOk} / {NOMBRE_AUTO} critères auto-vérifiés
               </p>
               <ul className="controle__details">
                 {controle.points.map((point) => (
@@ -302,13 +308,29 @@ export default function Checklist() {
                   </li>
                 ))}
               </ul>
-              <p className="controle__rappel">{controle.rappel}</p>
+              {categoriesManuelles.length > 0 && (
+                <p className="controle__manuel">
+                  <span className="controle__manuel-titre">
+                    {restantsManuels} critère{restantsManuels > 1 ? "s" : ""} à valider
+                    manuellement :
+                  </span>{" "}
+                  {categoriesManuelles.map((categorie, index) => (
+                    <span key={categorie.id}>
+                      {index > 0 && <span aria-hidden="true"> · </span>}
+                      <a className="controle__lien" href={`#categorie-${categorie.id}`}>
+                        {categorie.titre}
+                      </a>
+                    </span>
+                  ))}
+                </p>
+              )}
+              {controle.rappel && <p className="controle__rappel">{controle.rappel}</p>}
             </div>
           )}
         </div>
 
         {CATEGORIES.map((categorie) => (
-          <div className="categorie" key={categorie.id}>
+          <div className="categorie" key={categorie.id} id={`categorie-${categorie.id}`}>
             <h3 className="categorie__titre">{categorie.titre}</h3>
             <ul className="criteres">
               {categorie.elements.map((element) => {
