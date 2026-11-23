@@ -1,5 +1,5 @@
 === Preuve : dépôt GitHub public (accessible sans authentification) ===
-Date : 23/11/2026 11:54
+Date : 23/11/2026 11:56
 
 Page du dépôt  : HTTP 200
 README.md      : HTTP 200
