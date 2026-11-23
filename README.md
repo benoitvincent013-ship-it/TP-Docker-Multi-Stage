@@ -43,6 +43,8 @@ README, dans les sections suivantes et dans le script `verifier-readme.ps1`.
 
 L'application est entièrement statique : aucune API, aucune base de données.
 
+[↑ Retour au sommaire](#sommaire)
+
 ## 2. Technologies
 
 | Technologie | Version | Rôle |
@@ -56,6 +58,8 @@ L'application est entièrement statique : aucune API, aucune base de données.
 Pourquoi React + Vite : c'est le choix le plus simple (deux dépendances, aucune configuration
 de serveur, `npm run build` produit directement un dossier statique).
 
+[↑ Retour au sommaire](#sommaire)
+
 ## 3. Prérequis
 
 - Windows 11 avec **Docker Desktop** démarré.
@@ -66,6 +70,8 @@ de serveur, `npm run build` produit directement un dossier statique).
 ```powershell
 docker --version
 ```
+
+[↑ Retour au sommaire](#sommaire)
 
 ## 4. Structure du projet
 
@@ -103,6 +109,8 @@ TP-Docker-Multi-Stage/
 ├── verifier-readme.ps1            # Compare les chiffres du README au conteneur en marche
 └── vite.config.js
 ```
+
+[↑ Retour au sommaire](#sommaire)
 
 ## 5. Le Dockerfile multi-stage
 
@@ -147,6 +155,8 @@ CMD ["nginx", "-g", "daemon off;"]
 - Le `.dockerignore` exclut `node_modules`, `dist`, `.git`, `captures/` et les fichiers `.env`
   du contexte de build.
 
+[↑ Retour au sommaire](#sommaire)
+
 ## 6. Construire l'image
 
 ```powershell
@@ -167,6 +177,8 @@ sortie : `0` si tout est à jour, `1` s'il reste des écarts,
 le code d'erreur de Docker si le build ou le run échoue (le conteneur existant est alors
 laissé intact).
 
+[↑ Retour au sommaire](#sommaire)
+
 ## 7. Lancer le conteneur
 
 ```powershell
@@ -177,9 +189,13 @@ docker run -d --name mon-app -p 8080:80 mon-app-multistage:1.0
 Ces deux noms (`mon-app-multistage:1.0` et `mon-app`) sont ceux utilisés dans toutes
 les commandes de ce README et dans les captures du dossier `captures/`.
 
+[↑ Retour au sommaire](#sommaire)
+
 ## 8. Accéder à l'application
 
 **<http://localhost:8080>**
+
+[↑ Retour au sommaire](#sommaire)
 
 ## 9. Tester
 
@@ -223,6 +239,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\verifier-readme.ps1 -Captu
 `reconstruire.ps1` le fait automatiquement : chaque rebuild régénère
 `captures/08-verification-readme.txt`.
 
+[↑ Retour au sommaire](#sommaire)
+
 ## 10. Arrêter et supprimer
 
 ```powershell
@@ -231,6 +249,8 @@ docker start mon-app             # redémarrer
 docker rm -f mon-app             # supprimer le conteneur
 docker rmi mon-app-multistage:1.0 # supprimer l'image
 ```
+
+[↑ Retour au sommaire](#sommaire)
 
 ## 11. Résultats des tests effectués
 
@@ -252,6 +272,8 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 | Rebuild complet (`docker build --no-cache`) | code de sortie `0` : `npm ci` (63 paquets), `vite build` (36 modules), image réexportée |
 | Console navigateur | aucune erreur |
 
+[↑ Retour au sommaire](#sommaire)
+
 ## 12. Captures
 
 | Fichier | Contenu |
@@ -270,6 +292,8 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 
 ![Application Mes tâches servie par le conteneur](captures/06-application-navigateur.png)
 
+[↑ Retour au sommaire](#sommaire)
+
 ## 13. Développement hors Docker (facultatif)
 
 ```powershell
@@ -277,8 +301,12 @@ npm install
 npm run dev   # http://localhost:5173
 ```
 
+[↑ Retour au sommaire](#sommaire)
+
 ## 14. Versionnement
 
 Le dépôt contient les sources, le `Dockerfile`, la configuration Nginx, le README et les
 captures. Ne sont **pas** versionnés : `node_modules/`, `dist/`, `.env`, fichiers de l'éditeur.
 Aucun secret n'est présent dans le projet.
+
+[↑ Retour au sommaire](#sommaire)
