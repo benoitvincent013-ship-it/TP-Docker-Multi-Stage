@@ -191,7 +191,7 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 | `docker ps` | `mon-app` — `Up (healthy)`, `0.0.0.0:8080->80/tcp` |
 | `curl.exe -I http://localhost:8080` | `HTTP/1.1 200 OK`, `Server: nginx/1.27.5`, `Content-Length: 677` |
 | Temps de réponse | `0.0154 s` |
-| Contenu de l'image finale | `index.html` (677 o), `assets/index-*.css` (6 108 o), `assets/index-*.js` (153 424 o), `favicon.svg` (249 o) |
+| Contenu de l'image finale | `index.html` (677 o), `assets/index-LZxjdeIy.css` (8 776 o), `assets/index-BpNBJK9U.js` (155 362 o), `favicon.svg` (249 o) |
 | Absence de `node`, `npm`, `node_modules`, `/app` | confirmée |
 | Fonctionnement des tâches | ajout, coche (progression 33 %), filtre « Terminées », persistance après rechargement |
 | Checklist de validation | 5 / 5 critères validés automatiquement (100 %), sauvegarde `localStorage` conservée après rechargement, bouton « Copier » → retour « Copié ✓ » |
