@@ -20,7 +20,7 @@ export default function TaskForm({ onAjouter }) {
         id="nouvelle-tache"
         className="champ"
         type="text"
-        placeholder="Ajouter une tâche (par exemple : réviser le TP Docker)"
+        placeholder="Préparer la réunion de demain"
         value={valeur}
         onChange={(evenement) => setValeur(evenement.target.value)}
         maxLength={120}

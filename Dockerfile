@@ -5,7 +5,7 @@
 # ============================================================
 
 # ---------- ÉTAPE 1 : BUILD ----------
-FROM node:22-alpine AS build
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
@@ -30,7 +30,7 @@ RUN rm -rf /usr/share/nginx/html/*
 
 # On récupère UNIQUEMENT le dossier compilé depuis l'étape de build.
 # Ni Node, ni node_modules, ni sources ne sont présents dans cette image.
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 

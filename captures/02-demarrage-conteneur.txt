@@ -1,5 +1,5 @@
-docker run -d --name tp-docker -p 8080:80 --restart unless-stopped tp-docker-multi-stage
-c18b01407214df75fcfe70ddc79f134c9f262b8a5112349c8ef33de1baa0acba
-NAMES       IMAGE                   STATUS                   PORTS
-tp-docker   tp-docker-multi-stage   Up 6 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+docker run -d --name mon-app -p 8080:80 mon-app-multistage:1.0
+6a041a5a9b762b10840d9f7d82d48de81539e204158f1bbf671b876eeb1784d3
+NAMES     IMAGE                    STATUS                   PORTS
+mon-app   mon-app-multistage:1.0   Up 7 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
 etat=running sante=healthy

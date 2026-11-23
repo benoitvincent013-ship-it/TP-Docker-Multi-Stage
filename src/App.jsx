@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import TaskForm from "./components/TaskForm.jsx";
 import TaskList from "./components/TaskList.jsx";
+import Checklist from "./components/Checklist.jsx";
 
 const CLE_STOCKAGE = "mes-taches";
 
@@ -139,6 +140,8 @@ export default function App() {
         onBasculer={basculerTache}
         onSupprimer={supprimerTache}
       />
+
+      <Checklist />
     </div>
   );
 }

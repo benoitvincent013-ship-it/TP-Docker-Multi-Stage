@@ -1,22 +1,22 @@
 === Conteneur ===
-NAMES       IMAGE                   STATUS                    PORTS
-tp-docker   tp-docker-multi-stage   Up 19 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+NAMES     IMAGE                    STATUS                    PORTS
+mon-app   mon-app-multistage:1.0   Up 22 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
 
 === Fichiers statiques dans l'image finale (/usr/share/nginx/html) ===
 /usr/share/nginx/html:
 total 20
-drwxr-xr-x    1 root     root          4096 Nov 23 10:11 .
+drwxr-xr-x    1 root     root          4096 Nov 23 10:24 .
 drwxr-xr-x    1 root     root          4096 Apr 16  2025 ..
-drwxr-xr-x    2 root     root          4096 Nov 23 10:11 assets
--rwxr-xr-x    1 root     root           249 Nov 23 10:11 favicon.svg
--rw-r--r--    1 root     root           677 Nov 23 10:11 index.html
+drwxr-xr-x    2 root     root          4096 Nov 23 10:24 assets
+-rwxr-xr-x    1 root     root           249 Nov 23 10:24 favicon.svg
+-rw-r--r--    1 root     root           677 Nov 23 10:24 index.html
 
 /usr/share/nginx/html/assets:
-total 156
-drwxr-xr-x    2 root     root          4096 Nov 23 10:11 .
-drwxr-xr-x    1 root     root          4096 Nov 23 10:11 ..
--rw-r--r--    1 root     root        146634 Nov 23 10:11 index-AMkq-WUA.js
--rw-r--r--    1 root     root          3717 Nov 23 10:11 index-B4YCcKX5.css
+total 168
+drwxr-xr-x    2 root     root          4096 Nov 23 10:24 .
+drwxr-xr-x    1 root     root          4096 Nov 23 10:24 ..
+-rw-r--r--    1 root     root          6108 Nov 23 10:24 index-BCka5IHD.css
+-rw-r--r--    1 root     root        153424 Nov 23 10:24 index-DyPqksnt.js
 
 === Absence de Node, npm, node_modules et sources ===
 node ABSENT (OK)
@@ -26,4 +26,4 @@ recherche node_modules :
 /app ABSENT (OK)
 
 === Taille de l'image ===
-tp-docker-multi-stage:latest	73.9MB
+mon-app-multistage:1.0	73.9MB
