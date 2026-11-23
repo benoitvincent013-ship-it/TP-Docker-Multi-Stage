@@ -2,7 +2,7 @@
 
 Application web de gestion de tâches (React + Vite), compilée dans une image Docker
 **multi-stage** où Nginx sert uniquement les fichiers statiques produits par la compilation.
-L'application embarque aussi une section pliable « Checklist de validation du TP ».
+L'application affiche en permanence une section « Checklist de validation du TP » sous la liste.
 
 Dépôt GitHub : <https://github.com/benoitvincent013-ship-it/TP-Docker-Multi-Stage>
 
@@ -77,7 +77,7 @@ TP-Docker-Multi-Stage/
 │   └── favicon.svg
 ├── src/
 │   ├── components/
-│   │   ├── Checklist.jsx           # Section pliable de validation du TP
+│   │   ├── Checklist.jsx           # Section de validation du TP toujours visible
 │   │   ├── TaskForm.jsx            # Formulaire d'ajout
 │   │   ├── TaskItem.jsx            # Une tâche (case, libellé, suppression)
 │   │   └── TaskList.jsx            # Liste + état vide

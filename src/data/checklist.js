@@ -25,7 +25,7 @@ export const CATEGORIES = [
         id: "checklist-presente",
         auto: "checklist",
         texte:
-          "Section « Checklist de validation du TP » présente, pliable et fonctionnelle (cases persistées dans le localStorage, barre de progression dédiée, commandes copiables).",
+          "Section « Checklist de validation du TP » affichée directement sous la liste, toujours visible : cases persistées dans le localStorage, barre de progression dédiée, auto-vérification et commandes accessibles à la demande.",
         commande: "Start-Process http://localhost:8080",
       },
     ],
