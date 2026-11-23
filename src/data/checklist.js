@@ -8,12 +8,14 @@ export const CATEGORIES = [
     elements: [
       {
         id: "app-build",
+        auto: "assets",
         texte:
           "Application web fonctionnelle, compilée en fichiers statiques : npm run build génère le dossier dist/ sans erreur.",
         commande: "npm run build; Get-ChildItem dist",
       },
       {
         id: "app-pas-de-presentation",
+        auto: "presentation",
         texte: "Aucune page de présentation pédagogique du TP à la place de l'application.",
         commande:
           'Get-ChildItem src -Recurse -Include *.jsx | Select-String -Pattern "Les quatre étapes du TP"',
@@ -21,6 +23,7 @@ export const CATEGORIES = [
       },
       {
         id: "checklist-presente",
+        auto: "checklist",
         texte:
           "Section « Checklist de validation du TP » présente, pliable et fonctionnelle (cases persistées dans le localStorage, barre de progression dédiée, commandes copiables).",
         commande: "Start-Process http://localhost:8080",
@@ -74,12 +77,14 @@ export const CATEGORIES = [
       },
       {
         id: "http-200",
+        auto: "http200",
         texte:
           "Réponse HTTP vérifiée : Invoke-WebRequest -Uri http://localhost:8080 -UseBasicParsing retourne le code 200.",
         commande: "(Invoke-WebRequest -Uri http://localhost:8080 -UseBasicParsing).StatusCode",
       },
       {
         id: "navigateur-application",
+        auto: "application",
         texte:
           "Application testée et fonctionnelle dans le navigateur sur http://localhost:8080 (gestion des tâches + section « Checklist de validation du TP » accessible et opérationnelle).",
         commande: "Start-Process http://localhost:8080",
@@ -123,3 +128,13 @@ export const NOMBRE_CRITERES = CATEGORIES.reduce(
   (total, categorie) => total + categorie.elements.length,
   0
 );
+
+// Critères vérifiables automatiquement depuis le navigateur :
+// identifiant du critère → clé du test correspondant.
+export const CRITERES_AUTO = Object.fromEntries(
+  CATEGORIES.flatMap((categorie) => categorie.elements)
+    .filter((element) => element.auto)
+    .map((element) => [element.id, element.auto])
+);
+
+export const NOMBRE_AUTO = Object.keys(CRITERES_AUTO).length;
