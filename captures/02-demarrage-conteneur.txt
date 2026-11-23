@@ -1,0 +1,4 @@
+69f7b1145e020b190e41edc611646790985fb28c8d604ccf33d5d096b96f7a82
+NAMES       IMAGE                   STATUS                   PORTS
+tp-docker   tp-docker-multi-stage   Up 5 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+running health=healthy

@@ -1,0 +1,29 @@
+=== Docker: conteneur en fonctionnement ===
+NAMES       IMAGE                   STATUS                    PORTS
+tp-docker   tp-docker-multi-stage   Up 24 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+
+=== Contenu de /usr/share/nginx/html dans l'image finale ===
+/usr/share/nginx/html:
+total 20
+drwxr-xr-x    1 root     root          4096 Nov 23 10:01 .
+drwxr-xr-x    1 root     root          4096 Apr 16  2025 ..
+drwxr-xr-x    2 root     root          4096 Nov 23 10:01 assets
+-rwxr-xr-x    1 root     root           572 Nov 23 10:01 favicon.svg
+-rw-r--r--    1 root     root           637 Nov 23 10:01 index.html
+
+/usr/share/nginx/html/assets:
+total 156
+drwxr-xr-x    2 root     root          4096 Nov 23 10:01 .
+drwxr-xr-x    1 root     root          4096 Nov 23 10:01 ..
+-rw-r--r--    1 root     root        146403 Nov 23 10:01 index-C9b0CWWa.js
+-rw-r--r--    1 root     root          3434 Nov 23 10:01 index-CujJKYWe.css
+
+=== Verification node / npm / node_modules / sources ===
+node ABSENT (OK)
+npm ABSENT (OK)
+recherche node_modules :
+recherche terminee (aucune ligne = absent)
+/app ABSENT (OK)
+
+=== Taille de l'image ===
+tp-docker-multi-stage:latest	73.9MB

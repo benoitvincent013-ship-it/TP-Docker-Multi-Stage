@@ -1,0 +1,17 @@
+# Ce fichier évite d'envoyer des fichiers inutiles au moteur Docker
+# (contexte de build plus léger et cache plus fiable).
+
+node_modules
+dist
+.git
+.gitignore
+.vscode
+.DS_Store
+README.md
+captures
+Dockerfile
+.dockerignore
+npm-debug.log*
+*.local
+.env
+.env.*

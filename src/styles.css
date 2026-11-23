@@ -1,0 +1,268 @@
+:root {
+  --fond: #0f1117;
+  --carte: #171a23;
+  --bordure: #262b38;
+  --texte: #e9ecf3;
+  --texte-doux: #9aa4b8;
+  --accent: #2496ed;
+  --accent-doux: #1b5f92;
+  --ok: #3ecf8e;
+  --rayon: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 600px at 15% -10%, #1a2436 0%, var(--fond) 55%);
+  color: var(--texte);
+  font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+code {
+  font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+  font-size: 0.88em;
+  background: rgba(36, 150, 237, 0.12);
+  color: #8fc7f5;
+  padding: 0.12em 0.4em;
+  border-radius: 6px;
+}
+
+.page {
+  width: min(1040px, 92vw);
+  margin: 0 auto;
+  padding: 64px 0 40px;
+}
+
+/* ---------- En-tête ---------- */
+.eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 3.4vw, 2.55rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  max-width: 30ch;
+}
+
+.hero h1 span {
+  color: var(--accent);
+}
+
+.lead {
+  margin: 18px 0 0;
+  max-width: 68ch;
+  color: var(--texte-doux);
+  font-size: 1.02rem;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.badge {
+  border: 1px solid var(--bordure);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--texte-doux);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
+}
+
+.badge--ok {
+  border-color: rgba(62, 207, 142, 0.4);
+  color: var(--ok);
+  background: rgba(62, 207, 142, 0.08);
+}
+
+.badge--ok::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  vertical-align: 1px;
+}
+
+/* ---------- Sections ---------- */
+main {
+  margin-top: 56px;
+  display: grid;
+  gap: 48px;
+}
+
+h2 {
+  font-size: 1.15rem;
+  letter-spacing: 0.01em;
+  margin: 0 0 20px;
+  color: var(--texte);
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 2px;
+  margin-top: 10px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ---------- Cartes des étapes ---------- */
+.grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.carte {
+  background: linear-gradient(180deg, var(--carte), #14171f);
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 20px 20px 22px;
+}
+
+.carte__numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent-doux);
+  color: #dcecfb;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.carte h3 {
+  margin: 14px 0 8px;
+  font-size: 1.02rem;
+}
+
+.carte p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--texte-doux);
+}
+
+/* ---------- Schéma du multi-stage ---------- */
+.etapes-build {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.etape-build {
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  background: var(--carte);
+  padding: 20px;
+}
+
+.etape-build--finale {
+  border-color: rgba(36, 150, 237, 0.45);
+  background: linear-gradient(180deg, rgba(36, 150, 237, 0.09), var(--carte));
+}
+
+.etape-build__label {
+  margin: 0;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+
+.etape-build__image {
+  margin: 6px 0 14px;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.95rem;
+  color: #8fc7f5;
+}
+
+.etape-build ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--texte-doux);
+  font-size: 0.9rem;
+}
+
+.etape-build li + li {
+  margin-top: 6px;
+}
+
+.fleche {
+  align-self: center;
+  color: var(--accent);
+  font-size: 1.6rem;
+  padding: 0 4px;
+}
+
+/* ---------- Console ---------- */
+.console {
+  margin: 0;
+  background: #0b0d12;
+  border: 1px solid var(--bordure);
+  border-radius: var(--rayon);
+  padding: 18px 20px;
+  overflow-x: auto;
+  font-size: 0.86rem;
+  color: #cfe3f7;
+}
+
+.console code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: 0.86rem;
+}
+
+.note {
+  margin: 14px 0 0;
+  color: var(--texte-doux);
+  font-size: 0.88rem;
+}
+
+/* ---------- Pied de page ---------- */
+footer {
+  margin-top: 56px;
+  padding-top: 22px;
+  border-top: 1px solid var(--bordure);
+  color: #7b869b;
+  font-size: 0.82rem;
+}
+
+footer p {
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding-top: 40px;
+  }
+
+  .etapes-build {
+    grid-template-columns: 1fr;
+  }
+
+  .fleche {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+}
