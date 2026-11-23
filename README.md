@@ -30,8 +30,9 @@ Dépôt GitHub : <https://github.com/benoitvincent013-ship-it/TP-Docker-Multi-St
   manuellement : Image Docker multi-stage · Conteneur & tests · Dépôt GitHub »), qui font défiler
   la page jusqu'à la catégorie concernée ;
 - valider **d'un seul clic** les 10 critères non observables depuis le navigateur (Docker
-  Desktop, système de fichiers, GitHub) : le clic sur le texte du critère coche/décoche la case
-  et passe le statut à « Validé manuellement » ;
+  Desktop, système de fichiers, GitHub) : ces critères n'ont pas de case à cocher, leur texte est
+  un bouton — un clic le valide, un second le dévalide, et le statut passe à « Validé
+  manuellement » ;
 - afficher au besoin la commande PowerShell de chaque critère via le lien discret
   **« Voir la commande »** (toutes les commandes sont masquées par défaut), puis « Copier ».
 

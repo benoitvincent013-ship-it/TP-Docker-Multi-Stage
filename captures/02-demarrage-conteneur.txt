@@ -1,4 +1,4 @@
 docker run -d --name mon-app -p 8080:80 mon-app-multistage:1.0
-20f6329604d6850bcfdca34c8b96265054ae91472ac2cc14ee4e8781f3eab016
+346c106aca93b48854a2426ffd49fb1feac3d5e8b10a2b63dbc5514bddd0d2f6
 NAMES     IMAGE                    STATUS                   PORTS
 mon-app   mon-app-multistage:1.0   Up 5 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp

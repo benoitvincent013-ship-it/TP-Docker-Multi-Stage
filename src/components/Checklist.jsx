@@ -361,24 +361,40 @@ export default function Checklist() {
                     className={[
                       "critere",
                       estCoche ? "critere--coche" : "",
-                      estAuto ? "critere--auto" : "",
+                      estAuto ? "critere--auto" : "critere--manuel",
                     ]
                       .filter(Boolean)
                       .join(" ")}
                   >
-                    <input
-                      id={identifiant}
-                      className="case"
-                      type="checkbox"
-                      checked={estCoche}
-                      disabled={estAuto}
-                      onChange={() => basculerCritere(element.id)}
-                    />
+                    {/* Seuls les critères auto-vérifiés gardent une case (indicateur
+                        désactivé) : les critères manuels n'en ont plus, le texte du
+                        critère sert de bouton de validation. */}
+                    {estAuto && (
+                      <input
+                        id={identifiant}
+                        className="case"
+                        type="checkbox"
+                        checked={estCoche}
+                        disabled
+                        readOnly
+                      />
+                    )}
                     <div className="critere__corps">
                       <div className="critere__ligne">
-                        <label className="critere__texte" htmlFor={identifiant}>
-                          {element.texte}
-                        </label>
+                        {estAuto ? (
+                          <label className="critere__texte" htmlFor={identifiant}>
+                            {element.texte}
+                          </label>
+                        ) : (
+                          <button
+                            type="button"
+                            className="critere__texte critere__texte--bouton"
+                            aria-pressed={estCoche}
+                            onClick={() => basculerCritere(element.id)}
+                          >
+                            {element.texte}
+                          </button>
+                        )}
                         <span className={classeStatut}>{statut}</span>
                       </div>
 
