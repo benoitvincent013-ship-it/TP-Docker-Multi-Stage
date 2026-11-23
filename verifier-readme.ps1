@@ -17,7 +17,8 @@ param(
     [string]$Readme,
     [string]$Image = "mon-app-multistage:1.0",
     [string]$Conteneur = "mon-app",
-    [string]$Url = "http://localhost:8080"
+    [string]$Url = "http://localhost:8080",
+    [string]$Capture
 )
 
 $ErrorActionPreference = "Stop"
@@ -25,8 +26,8 @@ try { [Console]::OutputEncoding = [System.Text.Encoding]::UTF8 } catch { }
 
 # $PSScriptRoot peut être vide selon la façon dont le script est lancé :
 # on retombe alors sur le dossier courant.
+$dossier = if ($PSScriptRoot) { $PSScriptRoot } else { (Get-Location).Path }
 if (-not $Readme) {
-    $dossier = if ($PSScriptRoot) { $PSScriptRoot } else { (Get-Location).Path }
     $Readme = Join-Path $dossier "README.md"
 }
 $resultats = New-Object 'System.Collections.Generic.List[object]'
@@ -195,24 +196,48 @@ foreach ($nom in ($fichiersReels.Keys | Sort-Object)) {
 }
 
 # ------------------------------------------------------------------------ affichage
+$lignes = New-Object 'System.Collections.Generic.List[string]'
+$titre = "Comparaison README.md / conteneur '$Conteneur' ($Url)"
+$separateur = "-" * 84
+
 Write-Host ""
-Write-Host "Comparaison README.md / conteneur '$Conteneur' ($Url)" -ForegroundColor Cyan
-Write-Host ("-" * 84) -ForegroundColor DarkGray
+Write-Host $titre -ForegroundColor Cyan
+Write-Host $separateur -ForegroundColor DarkGray
+$lignes.Add($titre)
+$lignes.Add($separateur)
 
 foreach ($resultat in $resultats) {
     $statut = if ($resultat.Ok) { "[OK]   " } else { "[ECART]" }
     $couleur = if ($resultat.Ok) { "Green" } else { "Red" }
     $ligne = "{0} {1,-30} README {2,-16} réel {3}" -f $statut, $resultat.Libelle, $resultat.Attendu, $resultat.Reel
     Write-Host $ligne -ForegroundColor $couleur
+    $lignes.Add($ligne)
 }
 
-Write-Host ("-" * 84) -ForegroundColor DarkGray
+Write-Host $separateur -ForegroundColor DarkGray
+$lignes.Add($separateur)
+
 $ecarts = @($resultats | Where-Object { -not $_.Ok })
-
 if ($ecarts.Count -eq 0) {
-    Write-Host "Tout correspond : le README est à jour." -ForegroundColor Green
-    exit 0
+    $conclusion = "Tout correspond : le README est à jour."
+    Write-Host $conclusion -ForegroundColor Green
+}
+else {
+    $conclusion = "$($ecarts.Count) écart(s) : mets à jour la section 11 du README, puis relance ce script."
+    Write-Host $conclusion -ForegroundColor Red
+}
+$lignes.Add($conclusion)
+
+# Rapport texte prêt à versionner (captures/09-verification-readme.txt).
+if ($Capture) {
+    $cheminCapture = if ([System.IO.Path]::IsPathRooted($Capture)) { $Capture } else { Join-Path $dossier $Capture }
+    $parent = Split-Path -Parent $cheminCapture
+    if ($parent -and -not (Test-Path -LiteralPath $parent)) {
+        New-Item -ItemType Directory -Path $parent | Out-Null
+    }
+    Set-Content -Path $cheminCapture -Value $lignes -Encoding UTF8
+    Write-Host "Rapport enregistré dans $cheminCapture" -ForegroundColor DarkGray
 }
 
-Write-Host "$($ecarts.Count) écart(s) : mets à jour la section 11 du README, puis relance ce script." -ForegroundColor Red
+if ($ecarts.Count -eq 0) { exit 0 }
 exit 1

@@ -22,7 +22,8 @@ param(
     [int]$Port = 8080,
     [string]$Url = "http://localhost:8080",
     [string]$Verificateur,
-    [string]$Readme
+    [string]$Readme,
+    [string]$Capture = "captures\09-verification-readme.txt"
 )
 
 $ErrorActionPreference = "Stop"
@@ -113,6 +114,7 @@ Write-Host "Conteneur prêt (état : $etat)." -ForegroundColor Green
 Etape "4/4" "Comparaison du README avec le conteneur"
 $arguments = @{ Image = $Image; Conteneur = $Conteneur; Url = $Url }
 if ($Readme) { $arguments['Readme'] = $Readme }
+if ($Capture) { $arguments['Capture'] = $Capture }
 & $Verificateur @arguments
 $codeVerification = $LASTEXITCODE
 

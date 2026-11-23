@@ -71,7 +71,8 @@ TP-Docker-Multi-Stage/
 │   ├── 05-verification-image-finale.txt
 │   ├── 06-application-navigateur.png
 │   ├── 07-verification-depot-github.txt
-│   └── 08-checklist-validation.png
+│   ├── 08-checklist-validation.png
+│   └── 09-verification-readme.txt
 ├── nginx/
 │   └── default.conf                # Configuration du serveur (gzip, cache, fallback)
 ├── public/
@@ -156,7 +157,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\reconstruire.ps1
 
 `reconstruire.ps1` reconstruit l'image, supprime puis recrée `mon-app` sur le port 8080,
 attend l'état `healthy` (60 s au maximum, journal affiché en cas d'échec) et lance ensuite
-`verifier-readme.ps1`. Code de sortie : `0` si tout est à jour, `1` s'il reste des écarts,
+`verifier-readme.ps1` (qui réécrit la preuve `captures/09-verification-readme.txt`). Code de
+sortie : `0` si tout est à jour, `1` s'il reste des écarts,
 le code d'erreur de Docker si le build ou le run échoue (le conteneur existant est alors
 laissé intact).
 
@@ -206,6 +208,16 @@ les tailles des fichiers servis. Chaque ligne s'affiche en `[OK]` ou `[ECART]` ;
 avec le code `1` dès qu'un chiffre est périmé (et `2` si le conteneur est arrêté). Pratique
 juste après un rebuild : `docker build … ; powershell -File .\verifier-readme.ps1`.
 
+L'option `-Capture captures\09-verification-readme.txt` enregistre le rapport dans `captures/`
+(c'est le fichier de preuve versionné) :
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\verifier-readme.ps1 -Capture captures\09-verification-readme.txt
+```
+
+`reconstruire.ps1` le fait automatiquement : chaque rebuild régénère
+`captures/09-verification-readme.txt`.
+
 ## 10. Arrêter et supprimer
 
 ```powershell
@@ -252,6 +264,7 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 | `captures/06-application-navigateur.png` | L'application dans le navigateur, checklist visible directement |
 | `captures/07-verification-depot-github.txt` | Vérification du dépôt public (codes HTTP) |
 | `captures/08-checklist-validation.png` | Checklist auto-vérifiée : statuts par critère, commandes repliées |
+| `captures/09-verification-readme.txt` | Sortie réelle de `verifier-readme.ps1` : les 8 contrôles README / conteneur, tous en `[OK]` |
 
 ### Application
 
