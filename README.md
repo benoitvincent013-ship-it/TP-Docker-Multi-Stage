@@ -93,6 +93,7 @@ TP-Docker-Multi-Stage/
 ├── index.html
 ├── package.json
 ├── package-lock.json
+├── reconstruire.ps1               # Rebuild + recréation du conteneur + vérification
 ├── verifier-readme.ps1            # Compare les chiffres du README au conteneur en marche
 └── vite.config.js
 ```
@@ -146,6 +147,18 @@ CMD ["nginx", "-g", "daemon off;"]
 cd TP-Docker-Multi-Stage
 docker build -t mon-app-multistage:1.0 .
 ```
+
+Tout en une seule commande (rebuild + recréation du conteneur + contrôle du README) :
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\reconstruire.ps1
+```
+
+`reconstruire.ps1` reconstruit l'image, supprime puis recrée `mon-app` sur le port 8080,
+attend l'état `healthy` (60 s au maximum, journal affiché en cas d'échec) et lance ensuite
+`verifier-readme.ps1`. Code de sortie : `0` si tout est à jour, `1` s'il reste des écarts,
+le code d'erreur de Docker si le build ou le run échoue (le conteneur existant est alors
+laissé intact).
 
 ## 7. Lancer le conteneur
 
