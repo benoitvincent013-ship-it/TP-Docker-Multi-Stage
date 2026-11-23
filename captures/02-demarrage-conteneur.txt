@@ -1,4 +1,5 @@
-69f7b1145e020b190e41edc611646790985fb28c8d604ccf33d5d096b96f7a82
+docker run -d --name tp-docker -p 8080:80 --restart unless-stopped tp-docker-multi-stage
+c18b01407214df75fcfe70ddc79f134c9f262b8a5112349c8ef33de1baa0acba
 NAMES       IMAGE                   STATUS                   PORTS
-tp-docker   tp-docker-multi-stage   Up 5 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
-running health=healthy
+tp-docker   tp-docker-multi-stage   Up 6 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+etat=running sante=healthy
