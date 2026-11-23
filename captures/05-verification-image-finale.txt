@@ -1,22 +1,26 @@
 === Conteneur ===
-NAMES     IMAGE                    STATUS                    PORTS
-mon-app   mon-app-multistage:1.0   Up 48 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+NAMES     IMAGE                    STATUS                   PORTS
+mon-app   mon-app-multistage:1.0   Up 7 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
 
 === Fichiers statiques dans l'image finale (/usr/share/nginx/html) ===
-/usr/share/nginx/html:
 total 20
-drwxr-xr-x    1 root     root          4096 Nov 23 12:11 .
+drwxr-xr-x    1 root     root          4096 Nov 23 13:32 .
 drwxr-xr-x    1 root     root          4096 Apr 16  2025 ..
-drwxr-xr-x    2 root     root          4096 Nov 23 12:11 assets
--rwxr-xr-x    1 root     root           249 Nov 23 12:11 favicon.svg
--rw-r--r--    1 root     root           677 Nov 23 12:11 index.html
+drwxr-xr-x    2 root     root          4096 Nov 23 13:32 assets
+-rwxr-xr-x    1 root     root           249 Nov 23 13:32 favicon.svg
+-rw-r--r--    1 root     root           677 Nov 23 13:32 index.html
+total 156
+drwxr-xr-x    2 root     root          4096 Nov 23 13:32 .
+drwxr-xr-x    1 root     root          4096 Nov 23 13:32 ..
+-rw-r--r--    1 root     root          3717 Nov 23 13:32 index-B4YCcKX5.css
+-rw-r--r--    1 root     root        146609 Nov 23 13:32 index-DLpFjz_Q.js
 
-/usr/share/nginx/html/assets:
-total 172
-drwxr-xr-x    2 root     root          4096 Nov 23 12:11 .
-drwxr-xr-x    1 root     root          4096 Nov 23 12:11 ..
--rw-r--r--    1 root     root        155362 Nov 23 12:11 index-BpNBJK9U.js
--rw-r--r--    1 root     root          8776 Nov 23 12:11 index-LZxjdeIy.css
+=== Tailles réelles (octets) ===
+      677 /usr/share/nginx/html/index.html
+      249 /usr/share/nginx/html/favicon.svg
+   146609 /usr/share/nginx/html/assets/index-DLpFjz_Q.js
+     3717 /usr/share/nginx/html/assets/index-B4YCcKX5.css
+   151252 total
 
 === Absence de Node, npm, node_modules et sources ===
 node ABSENT (OK)
@@ -26,4 +30,5 @@ recherche node_modules :
 /app ABSENT (OK)
 
 === Taille de l'image ===
-mon-app-multistage:1.0	73.9MB
+REPOSITORY:TAG           SIZE
+mon-app-multistage:1.0   73.9MB

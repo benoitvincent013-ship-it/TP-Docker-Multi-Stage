@@ -23,7 +23,7 @@ param(
     [string]$Url = "http://localhost:8080",
     [string]$Verificateur,
     [string]$Readme,
-    [string]$Capture = "captures\09-verification-readme.txt"
+    [string]$Capture = "captures\08-verification-readme.txt"
 )
 
 $ErrorActionPreference = "Stop"

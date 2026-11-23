@@ -228,7 +228,7 @@ else {
 }
 $lignes.Add($conclusion)
 
-# Rapport texte prêt à versionner (captures/09-verification-readme.txt).
+# Rapport texte prêt à versionner (captures/08-verification-readme.txt).
 if ($Capture) {
     $cheminCapture = if ([System.IO.Path]::IsPathRooted($Capture)) { $Capture } else { Join-Path $dossier $Capture }
     $parent = Split-Path -Parent $cheminCapture
