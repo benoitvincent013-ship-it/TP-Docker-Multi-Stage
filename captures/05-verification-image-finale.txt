@@ -1,22 +1,22 @@
 === Conteneur ===
 NAMES     IMAGE                    STATUS                    PORTS
-mon-app   mon-app-multistage:1.0   Up 36 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
+mon-app   mon-app-multistage:1.0   Up 48 seconds (healthy)   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp
 
 === Fichiers statiques dans l'image finale (/usr/share/nginx/html) ===
 /usr/share/nginx/html:
 total 20
-drwxr-xr-x    1 root     root          4096 Nov 23 12:02 .
+drwxr-xr-x    1 root     root          4096 Nov 23 12:11 .
 drwxr-xr-x    1 root     root          4096 Apr 16  2025 ..
-drwxr-xr-x    2 root     root          4096 Nov 23 12:02 assets
--rwxr-xr-x    1 root     root           249 Nov 23 12:02 favicon.svg
--rw-r--r--    1 root     root           677 Nov 23 12:02 index.html
+drwxr-xr-x    2 root     root          4096 Nov 23 12:11 assets
+-rwxr-xr-x    1 root     root           249 Nov 23 12:11 favicon.svg
+-rw-r--r--    1 root     root           677 Nov 23 12:11 index.html
 
 /usr/share/nginx/html/assets:
-total 176
-drwxr-xr-x    2 root     root          4096 Nov 23 12:02 .
-drwxr-xr-x    1 root     root          4096 Nov 23 12:02 ..
--rw-r--r--    1 root     root        158759 Nov 23 12:02 index-BCN4c-Dp.js
--rw-r--r--    1 root     root          9178 Nov 23 12:02 index-utQLk2r3.css
+total 172
+drwxr-xr-x    2 root     root          4096 Nov 23 12:11 .
+drwxr-xr-x    1 root     root          4096 Nov 23 12:11 ..
+-rw-r--r--    1 root     root        155362 Nov 23 12:11 index-BpNBJK9U.js
+-rw-r--r--    1 root     root          8776 Nov 23 12:11 index-LZxjdeIy.css
 
 === Absence de Node, npm, node_modules et sources ===
 node ABSENT (OK)

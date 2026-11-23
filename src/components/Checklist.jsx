@@ -6,25 +6,6 @@ import {
   NOMBRE_CRITERES,
 } from "../data/checklist.js";
 
-const CLE_COCHES = "checklist-tp";
-const TOUS_LES_ID = CATEGORIES.flatMap((categorie) =>
-  categorie.elements.map((element) => element.id)
-);
-
-// Seuls les critères non automatiques sont mémorisés : les autres sont
-// recalculés à chaque chargement de la page.
-function lireCoches() {
-  try {
-    const donnees = JSON.parse(localStorage.getItem(CLE_COCHES) || "[]");
-    if (!Array.isArray(donnees)) return [];
-    return donnees
-      .map(String)
-      .filter((id) => TOUS_LES_ID.includes(id) && !CRITERES_AUTO[id]);
-  } catch {
-    return [];
-  }
-}
-
 function lireTableau(cle) {
   try {
     const donnees = JSON.parse(localStorage.getItem(cle) || "[]");
@@ -43,16 +24,11 @@ function heureFrancaise(date) {
 }
 
 export default function Checklist() {
-  const [coches, setCoches] = useState(lireCoches);
   const [auto, setAuto] = useState({});
   const [controle, setControle] = useState(null);
   const [enCours, setEnCours] = useState(false);
   const [commandesOuvertes, setCommandesOuvertes] = useState([]);
   const [copie, setCopie] = useState(null);
-
-  useEffect(() => {
-    localStorage.setItem(CLE_COCHES, JSON.stringify(coches));
-  }, [coches]);
 
   useEffect(() => {
     if (!copie) return undefined;
@@ -186,15 +162,6 @@ export default function Checklist() {
     executerTests().finally(() => setEnCours(false));
   };
 
-  const basculerCritere = (id) => {
-    if (CRITERES_AUTO[id]) return; // géré automatiquement
-    setCoches((precedentes) =>
-      precedentes.includes(id)
-        ? precedentes.filter((element) => element !== id)
-        : [...precedentes, id]
-    );
-  };
-
   const basculerCommande = (id) => {
     setCommandesOuvertes((ouvertes) =>
       ouvertes.includes(id)
@@ -222,16 +189,7 @@ export default function Checklist() {
   };
 
   const criteresAutoOk = Object.values(auto).filter((resultat) => resultat.ok).length;
-  const faits = coches.length + criteresAutoOk;
-  const progression = Math.round((faits / NOMBRE_CRITERES) * 100);
-  const restantsManuels = NOMBRE_CRITERES - NOMBRE_AUTO - coches.length;
-  // Catégories qui contiennent encore au moins un critère manuel non coché :
-  // le panneau d'auto-vérification y renvoie par un lien.
-  const categoriesManuelles = CATEGORIES.filter((categorie) =>
-    categorie.elements.some(
-      (element) => !CRITERES_AUTO[element.id] && !coches.includes(element.id)
-    )
-  );
+  const progression = Math.round((criteresAutoOk / NOMBRE_CRITERES) * 100);
 
   return (
     <section className="verification" aria-labelledby="verification-titre">
@@ -241,9 +199,7 @@ export default function Checklist() {
             Checklist de validation du TP
           </h2>
           <p className="verification__sous-titre">
-            {faits} / {NOMBRE_CRITERES} critères validés ({criteresAutoOk} automatique
-            {criteresAutoOk > 1 ? "s" : ""}, {coches.length} manuel
-            {coches.length > 1 ? "s" : ""})
+            {criteresAutoOk} / {NOMBRE_AUTO} critères validés automatiquement
           </p>
         </div>
         <div className="verification__droite">
@@ -308,97 +264,52 @@ export default function Checklist() {
                   </li>
                 ))}
               </ul>
-              {categoriesManuelles.length > 0 && (
-                <p className="controle__manuel">
-                  <span className="controle__manuel-titre">
-                    {restantsManuels} critère{restantsManuels > 1 ? "s" : ""} à valider
-                    manuellement :
-                  </span>{" "}
-                  {categoriesManuelles.map((categorie, index) => (
-                    <span key={categorie.id}>
-                      {index > 0 && <span aria-hidden="true"> · </span>}
-                      <a className="controle__lien" href={`#categorie-${categorie.id}`}>
-                        {categorie.titre}
-                      </a>
-                    </span>
-                  ))}
-                </p>
-              )}
               {controle.rappel && <p className="controle__rappel">{controle.rappel}</p>}
             </div>
           )}
         </div>
 
         {CATEGORIES.map((categorie) => (
-          <div className="categorie" key={categorie.id} id={`categorie-${categorie.id}`}>
+          <div className="categorie" key={categorie.id}>
             <h3 className="categorie__titre">{categorie.titre}</h3>
             <ul className="criteres">
               {categorie.elements.map((element) => {
-                const estAuto = Boolean(CRITERES_AUTO[element.id]);
                 const resultatAuto = auto[element.id];
-                const estCoche = estAuto
-                  ? Boolean(resultatAuto && resultatAuto.ok)
-                  : coches.includes(element.id);
+                const estCoche = Boolean(resultatAuto && resultatAuto.ok);
                 const identifiant = `critere-${element.id}`;
                 const commandeVisible = commandesOuvertes.includes(element.id);
-
-                let statut = "";
-                let classeStatut = "statut";
-                if (estAuto) {
-                  statut = estCoche ? "Auto-vérifié OK" : "Auto — à revérifier";
-                  classeStatut = estCoche ? "statut statut--auto-ok" : "statut statut--attente";
-                } else if (estCoche) {
-                  statut = "Validé manuellement";
-                  classeStatut = "statut statut--manuel-ok";
-                } else {
-                  statut = "À valider manuellement";
-                  classeStatut = "statut statut--attente";
-                }
+                const statut = estCoche ? "Auto-vérifié OK" : "Auto — à revérifier";
 
                 return (
                   <li
                     key={element.id}
-                    className={[
-                      "critere",
-                      estCoche ? "critere--coche" : "",
-                      estAuto ? "critere--auto" : "critere--manuel",
-                    ]
+                    className={["critere", estCoche ? "critere--coche" : "", "critere--auto"]
                       .filter(Boolean)
                       .join(" ")}
                   >
-                    {/* Seuls les critères auto-vérifiés gardent une case (indicateur
-                        désactivé) : les critères manuels n'en ont plus, le texte du
-                        critère sert de bouton de validation. */}
-                    {estAuto && (
-                      <input
-                        id={identifiant}
-                        className="case"
-                        type="checkbox"
-                        checked={estCoche}
-                        disabled
-                        readOnly
-                      />
-                    )}
+                    <input
+                      id={identifiant}
+                      className="case"
+                      type="checkbox"
+                      checked={estCoche}
+                      disabled
+                      readOnly
+                    />
                     <div className="critere__corps">
                       <div className="critere__ligne">
-                        {estAuto ? (
-                          <label className="critere__texte" htmlFor={identifiant}>
-                            {element.texte}
-                          </label>
-                        ) : (
-                          <button
-                            type="button"
-                            className="critere__texte critere__texte--bouton"
-                            aria-pressed={estCoche}
-                            onClick={() => basculerCritere(element.id)}
-                          >
-                            {element.texte}
-                          </button>
-                        )}
-                        <span className={classeStatut}>{statut}</span>
+                        <label className="critere__texte" htmlFor={identifiant}>
+                          {element.texte}
+                        </label>
+                        <span
+                          className={
+                            estCoche ? "statut statut--auto-ok" : "statut statut--attente"
+                          }
+                        >
+                          {statut}
+                        </span>
                       </div>
 
-                      {estAuto && resultatAuto && (
+                      {resultatAuto && (
                         <p className="critere__auto-info">{resultatAuto.texte}</p>
                       )}
                       {element.note && <p className="critere__note">{element.note}</p>}

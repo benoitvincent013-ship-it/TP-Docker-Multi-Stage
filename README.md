@@ -18,23 +18,19 @@ Dépôt GitHub : <https://github.com/benoitvincent013-ship-it/TP-Docker-Multi-St
 - filtrer la liste : **Toutes / À faire / Terminées** ;
 - effacer d'un coup toutes les tâches terminées ;
 - conserver les tâches après fermeture du navigateur (`localStorage`) ;
-- vérifier les critères du TP dans la section **« Checklist de validation du TP »**, affichée
-  directement sous la liste : 15 critères répartis en 4 catégories, barre de progression
-  dédiée et compteur mis à jour à chaque changement ;
+- afficher dans la section **« Checklist de validation du TP »**, directement sous la liste,
+  uniquement les critères **observables depuis le navigateur** : 5 critères répartis en
+  2 catégories, barre de progression dédiée et compteur mis à jour à chaque vérification ;
 - laisser la page **s'auto-vérifier** : au chargement (et via le bouton « Tout auto-vérifier
-  maintenant »), 5 critères sont testés dans le navigateur — origine HTTP/localhost, fichiers
+  maintenant »), ces 5 critères sont testés dans le navigateur — origine HTTP/localhost, fichiers
   compilés chargés, DOM de l'application et de la checklist, persistance `localStorage` et
   réponse HTTP 200 — puis cochés avec le statut **« Auto-vérifié OK »** et un détail lisible ;
-- garder le panneau d'auto-vérification limité aux tests automatiques (« 5 / 5 critères
-  auto-vérifiés ») et renvoyer vers le reste par des liens de catégorie (« 6 critères à valider
-  manuellement : Image Docker multi-stage · Conteneur & tests · Dépôt GitHub »), qui font défiler
-  la page jusqu'à la catégorie concernée ;
-- valider **d'un seul clic** les 10 critères non observables depuis le navigateur (Docker
-  Desktop, système de fichiers, GitHub) : ces critères n'ont pas de case à cocher, leur texte est
-  un bouton — un clic le valide, un second le dévalide, et le statut passe à « Validé
-  manuellement » ;
 - afficher au besoin la commande PowerShell de chaque critère via le lien discret
   **« Voir la commande »** (toutes les commandes sont masquées par défaut), puis « Copier ».
+
+Les contrôles qui ne sont pas observables depuis un navigateur (Dockerfile, image, conteneur,
+fichiers du dépôt) restent vérifiables avec les commandes des sections suivantes ; ils ne sont
+plus listés dans la page.
 
 L'application est entièrement statique : aucune API, aucune base de données.
 
@@ -87,7 +83,7 @@ TP-Docker-Multi-Stage/
 │   │   ├── TaskItem.jsx            # Une tâche (case, libellé, suppression)
 │   │   └── TaskList.jsx            # Liste + état vide
 │   ├── data/
-│   │   └── checklist.js            # Les 15 critères et leurs commandes
+│   │   └── checklist.js            # Les 5 critères vérifiés automatiquement
 │   ├── App.jsx                     # État, filtres, progression, sauvegarde locale
 │   ├── main.jsx                    # Point d'entrée React
 │   └── styles.css
@@ -198,12 +194,11 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 | Contenu de l'image finale | `index.html` (677 o), `assets/index-*.css` (6 108 o), `assets/index-*.js` (153 424 o), `favicon.svg` (249 o) |
 | Absence de `node`, `npm`, `node_modules`, `/app` | confirmée |
 | Fonctionnement des tâches | ajout, coche (progression 33 %), filtre « Terminées », persistance après rechargement |
-| Checklist de validation | 9 / 15 critères validés (60 %) : 5 auto + 4 manuels, sauvegarde `localStorage` conservée après rechargement, bouton « Copier » → retour « Copié ✓ » |
-| Section toujours visible | 15 critères rendus dès le chargement, aucun accordéon ni onglet à ouvrir |
-| Auto-vérification au chargement | 5 / 5 critères automatiques cochés, badge **OK** à 11:45:06, origine `http://localhost:8080`, réponse `200 OK` |
-| Bouton « Tout auto-vérifier maintenant » | relance les tests et met à jour l'horodatage (11:43:59 → 11:44:22) |
-| Validation manuelle en un clic | clic sur un critère Docker/fichier/GitHub → « Validé manuellement », compteur 8/15 → 9/15 (53 % → 60 %) |
-| Commandes masquées par défaut | 15 liens « Voir la commande », aucune commande affichée au chargement ; ouverture à la demande puis « Copier » |
+| Checklist de validation | 5 / 5 critères validés automatiquement (100 %), sauvegarde `localStorage` conservée après rechargement, bouton « Copier » → retour « Copié ✓ » |
+| Section toujours visible | 5 critères rendus dès le chargement, aucun accordéon ni onglet à ouvrir, aucune case à cocher à manipuler |
+| Auto-vérification au chargement | 5 / 5 critères cochés, badge **OK** à 13:11:45, origine `http://localhost:8080`, réponse `200 OK` |
+| Bouton « Tout auto-vérifier maintenant » | relance les tests et met à jour l'horodatage (13:11:45 → 13:11:52) |
+| Commandes masquées par défaut | 5 liens « Voir la commande », aucune commande affichée au chargement ; ouverture à la demande puis « Copier » |
 | Contrôle en cas d'échec | requête réseau simulée en échec → badge **À vérifier** et ligne « Réponse HTTP impossible… » |
 | Console navigateur | aucune erreur |
 
