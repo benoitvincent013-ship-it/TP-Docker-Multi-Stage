@@ -99,21 +99,35 @@ TP-Docker-Multi-Stage/
 ## 5. Le Dockerfile multi-stage
 
 ```dockerfile
-# ÉTAPE 1 : compilation
 FROM node:22-alpine AS builder
+
 WORKDIR /app
+
+# On copie d'abord les manifestes : la couche "npm ci" reste en cache
+# tant que les dépendances ne changent pas.
 COPY package.json package-lock.json ./
 RUN npm ci
-COPY . .
-RUN npm run build          # génère /app/dist
 
-# ÉTAPE 2 : production
+# On copie ensuite les sources et on compile.
+COPY . .
+RUN npm run build
+
 FROM nginx:1.27-alpine AS runtime
+
+# Configuration Nginx dédiée (gzip, cache, en-têtes, fallback SPA)
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# On supprime les pages par défaut de Nginx (index.html, 50x.html)
 RUN rm -rf /usr/share/nginx/html/*
+
+# On récupère UNIQUEMENT le dossier compilé depuis l'étape de build.
 COPY --from=builder /app/dist /usr/share/nginx/html
+
 EXPOSE 80
-HEALTHCHECK CMD wget -q --spider http://127.0.0.1/ || exit 1
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget -q --spider http://127.0.0.1/ || exit 1
+
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
@@ -139,8 +153,8 @@ docker run -d --name mon-app -p 8080:80 mon-app-multistage:1.0
 ```
 
 `-p 8080:80` publie le port 80 du conteneur sur le port 8080 de la machine.
-Ces deux noms (`mon-app-multistage:1.0` et `mon-app`) sont ceux utilisés dans la
-checklist de l'application : les commandes s'y copient telles quelles.
+Ces deux noms (`mon-app-multistage:1.0` et `mon-app`) sont ceux utilisés dans toutes
+les commandes de ce README et dans les captures du dossier `captures/`.
 
 ## 8. Accéder à l'application
 
@@ -190,14 +204,14 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 | Taille de l'image finale | **73,9 Mo** |
 | `docker ps` | `mon-app` — `Up (healthy)`, `0.0.0.0:8080->80/tcp` |
 | `curl.exe -I http://localhost:8080` | `HTTP/1.1 200 OK`, `Server: nginx/1.27.5`, `Content-Length: 677` |
-| Temps de réponse | `0.0154 s` |
+| Temps de réponse | `0.0056 s` (mesure locale `curl.exe` sur `http://localhost:8080`) |
 | Contenu de l'image finale | `index.html` (677 o), `assets/index-LZxjdeIy.css` (8 776 o), `assets/index-BpNBJK9U.js` (155 362 o), `favicon.svg` (249 o) |
 | Absence de `node`, `npm`, `node_modules`, `/app` | confirmée |
 | Fonctionnement des tâches | ajout, coche (progression 33 %), filtre « Terminées », persistance après rechargement |
-| Checklist de validation | 5 / 5 critères validés automatiquement (100 %), sauvegarde `localStorage` conservée après rechargement, bouton « Copier » → retour « Copié ✓ » |
+| Checklist de validation | 5 / 5 critères validés automatiquement (100 %), aucun critère manuel affiché, bouton « Copier » → retour « Copié ✓ » |
 | Section toujours visible | 5 critères rendus dès le chargement, aucun accordéon ni onglet à ouvrir, aucune case à cocher à manipuler |
-| Auto-vérification au chargement | 5 / 5 critères cochés, badge **OK** à 13:11:45, origine `http://localhost:8080`, réponse `200 OK` |
-| Bouton « Tout auto-vérifier maintenant » | relance les tests et met à jour l'horodatage (13:11:45 → 13:11:52) |
+| Auto-vérification au chargement | 5 / 5 critères cochés, badge **OK**, horodatage recalculé à chaque chargement (relevé le 23/11/2026 à 13:16:44), origine `http://localhost:8080`, réponse `200 OK` |
+| Bouton « Tout auto-vérifier maintenant » | relance les tests et met à jour l'horodatage (relevé : 13:15:04 → 13:15:32) |
 | Commandes masquées par défaut | 5 liens « Voir la commande », aucune commande affichée au chargement ; ouverture à la demande puis « Copier » |
 | Contrôle en cas d'échec | requête réseau simulée en échec → badge **À vérifier** et ligne « Réponse HTTP impossible… » |
 | Console navigateur | aucune erreur |
@@ -206,6 +220,7 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 
 | Fichier | Contenu |
 |---|---|
+| `captures/00-generation-package-lock.txt` | Génération du `package-lock.json` (image `node:22-alpine` téléchargée) |
 | `captures/01-build-image.txt` | Sortie réelle de `docker build` |
 | `captures/02-demarrage-conteneur.txt` | Démarrage et état du conteneur |
 | `captures/03-test-http-headers.txt` | En-têtes HTTP renvoyés par Nginx |
