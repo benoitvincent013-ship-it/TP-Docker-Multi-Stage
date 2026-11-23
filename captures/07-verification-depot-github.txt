@@ -1,10 +1,10 @@
 === Preuve : dépôt GitHub public (accessible sans authentification) ===
-Date : 23/11/2026 13:08
+Date : 23/11/2026 13:12
 
 Page du dépôt  : HTTP 200
 README.md      : HTTP 200
 Dockerfile     : HTTP 200
 Checklist.jsx  : HTTP 200
-Capture 08     : HTTP 200 (142775 octets)
+Capture 08     : HTTP 200
 
 URL : https://github.com/benoitvincent013-ship-it/TP-Docker-Multi-Stage
