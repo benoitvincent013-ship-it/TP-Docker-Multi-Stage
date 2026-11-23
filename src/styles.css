@@ -355,12 +355,6 @@ body {
   background: var(--carte);
 }
 
-.verification__intro {
-  margin: 16px 0 16px;
-  font-size: 0.82rem;
-  color: var(--texte-doux);
-}
-
 /* ---------- Contrôle rapide intégré ---------- */
 .controle {
   border: 1px solid #dfe4ee;

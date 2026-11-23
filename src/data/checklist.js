@@ -10,8 +10,8 @@ export const CATEGORIES = [
         id: "app-build",
         auto: "assets",
         texte:
-          "Application web fonctionnelle, compilée en fichiers statiques : npm run build génère le dossier dist/ sans erreur.",
-        commande: "npm run build; Get-ChildItem dist",
+          "Application compilée : les fichiers statiques (JavaScript et CSS) sont servis depuis /assets/ et chargés par la page.",
+        commande: 'curl.exe -s http://localhost:8080 | Select-String -Pattern "assets/"',
       },
       {
         id: "app-pas-de-presentation",
