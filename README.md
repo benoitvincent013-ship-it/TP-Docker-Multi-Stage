@@ -243,7 +243,7 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 | `captures/03-test-http-headers.txt` | En-têtes HTTP renvoyés par Nginx |
 | `captures/04-test-http-body.html` | HTML servi par le conteneur |
 | `captures/05-verification-image-finale.txt` | Fichiers statiques présents, absence de Node/`node_modules`, taille |
-| `captures/06-application-navigateur.png` | L'application servie par le conteneur, sans aucune section de validation sous la liste |
+| `captures/06-application-navigateur.png` | L'application servie par le conteneur (capture 2560 × 1280), sans aucune section de validation sous la liste |
 | `captures/07-verification-depot-github.txt` | Vérification du dépôt public (codes HTTP) |
 | `captures/08-verification-readme.txt` | Sortie réelle de `verifier-readme.ps1` : les 8 contrôles README / conteneur, tous en `[OK]` |
 
