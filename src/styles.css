@@ -279,7 +279,7 @@ body {
   font-size: 0.92rem;
 }
 
-/* ---------- Checklist de validation (pliable) ---------- */
+/* ---------- Checklist de validation (toujours visible) ---------- */
 .verification {
   margin-top: 28px;
   border: 1px solid var(--bordure);
@@ -290,21 +290,11 @@ body {
 
 .verification__entete {
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  border: 0;
-  background: transparent;
-  padding: 14px 16px;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
-  text-align: left;
-}
-
-.verification__entete:hover {
-  background: #f3f5fa;
+  padding: 16px;
+  border-bottom: 1px solid var(--bordure);
 }
 
 .verification__texte {
@@ -313,11 +303,18 @@ body {
 }
 
 .verification__titre {
-  font-size: 0.9rem;
-  font-weight: 600;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.verification__titre::after {
+  content: none;
 }
 
 .verification__sous-titre {
+  margin: 0;
   font-size: 0.78rem;
   color: var(--texte-doux);
 }
@@ -353,25 +350,166 @@ body {
   text-align: right;
 }
 
-.chevron {
-  color: var(--texte-doux);
-  transition: transform 160ms ease;
-}
-
-.chevron--ouvert {
-  transform: rotate(180deg);
-}
-
 .verification__panneau {
-  border-top: 1px solid var(--bordure);
   padding: 16px;
   background: var(--carte);
 }
 
 .verification__intro {
-  margin: 0 0 16px;
+  margin: 16px 0 16px;
   font-size: 0.82rem;
   color: var(--texte-doux);
+}
+
+/* ---------- Contrôle rapide intégré ---------- */
+.controle {
+  border: 1px solid #dfe4ee;
+  border-radius: 10px;
+  background: #f8f9fc;
+  padding: 12px 14px;
+}
+
+.controle__ligne {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.controle__titre {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--texte);
+}
+
+.controle__aide {
+  margin: 2px 0 0;
+  font-size: 0.76rem;
+  color: var(--texte-doux);
+  max-width: 46ch;
+}
+
+.controle__bouton {
+  border: 1px solid #cfd6e4;
+  background: #fff;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: none;
+}
+
+.controle__bouton:hover:not(:disabled) {
+  background: var(--accent-clair);
+  border-color: #c3c7ee;
+}
+
+.controle__bouton:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.controle__resultat {
+  margin-top: 12px;
+  border: 1px solid #dfe4ee;
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px 12px;
+}
+
+.controle__resultat--ok {
+  border-color: #cbe7d8;
+  background: #f6fbf8;
+}
+
+.controle__resultat--attention {
+  border-color: #f0dfbe;
+  background: #fffbf2;
+}
+
+.controle__bandeau {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.76rem;
+  color: var(--texte-doux);
+}
+
+.controle__badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: #eef1f7;
+  color: #5b6577;
+}
+
+.controle__resultat--ok .controle__badge {
+  background: #dff3e8;
+  color: #1f7a4d;
+}
+
+.controle__resultat--attention .controle__badge {
+  background: #fbeccf;
+  color: #8a5a10;
+}
+
+.controle__heure,
+.controle__origine {
+  font-variant-numeric: tabular-nums;
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+
+.controle__details {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: #414b5c;
+}
+
+.point {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.point__marque {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  font-weight: 700;
+  background: #fbeccf;
+  color: #8a5a10;
+  margin-top: 2px;
+}
+
+.point--ok .point__marque {
+  background: #dff3e8;
+  color: #1f7a4d;
+}
+
+.controle__rappel {
+  margin: 8px 0 0;
+  font-size: 0.75rem;
+  color: var(--texte-doux);
+  border-top: 1px dashed #e3e8f1;
+  padding-top: 8px;
 }
 
 .categorie + .categorie {
@@ -399,6 +537,7 @@ body {
   display: flex;
   gap: 10px;
   align-items: flex-start;
+  min-width: 0;
   padding: 10px 12px;
   border: 1px solid var(--bordure);
   border-radius: 10px;
@@ -436,6 +575,8 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
+  max-width: 100%;
   background: #f4f6fa;
   border: 1px solid #e7ebf3;
   border-radius: 8px;

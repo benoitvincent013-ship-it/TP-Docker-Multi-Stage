@@ -18,10 +18,14 @@ Dépôt GitHub : <https://github.com/benoitvincent013-ship-it/TP-Docker-Multi-St
 - filtrer la liste : **Toutes / À faire / Terminées** ;
 - effacer d'un coup toutes les tâches terminées ;
 - conserver les tâches après fermeture du navigateur (`localStorage`) ;
-- vérifier les critères du TP dans la section **« Checklist de validation du TP »**, repliée
-  par défaut sous la liste : 15 critères répartis en 4 catégories, cases cochées sauvegardées
-  dans le `localStorage` (clé `checklist-tp`), barre de progression dédiée et commande
-  PowerShell copiable en un clic pour chaque critère.
+- vérifier les critères du TP dans la section **« Checklist de validation du TP »**, affichée
+  directement sous la liste (aucun accordéon à ouvrir) : 15 critères répartis en 4 catégories,
+  cases cochées sauvegardées dans le `localStorage` (clé `checklist-tp`), barre de progression
+  dédiée et commande PowerShell copiable en un clic pour chaque critère ;
+- utiliser le **contrôle rapide intégré** de cette section : un bouton affiche immédiatement
+  sur la page un badge **OK / À vérifier** avec l'heure du test, l'origine de la page
+  (`http://localhost:8080` ou `file://`), l'état du DOM (15/15 critères rendus), le contenu du
+  `localStorage` (tâches et critères cochés) et le code HTTP renvoyé par le serveur.
 
 L'application est entièrement statique : aucune API, aucune base de données.
 
@@ -186,6 +190,9 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 | Absence de `node`, `npm`, `node_modules`, `/app` | confirmée |
 | Fonctionnement des tâches | ajout, coche (progression 33 %), filtre « Terminées », persistance après rechargement |
 | Checklist de validation | 5 / 15 critères cochés, barre à 33 %, sauvegarde `localStorage` `checklist-tp` conservée après rechargement, bouton « Copier » → retour « Copié ✓ » |
+| Section toujours visible | 15 critères rendus dès le chargement, aucun accordéon ni onglet à ouvrir |
+| Contrôle rapide (cas nominal) | badge **OK**, testé à 11:36:32, origine `http://localhost:8080`, DOM 15/15, `localStorage` 3 tâches + 5 critères, accès HTTP `200 OK` |
+| Contrôle rapide (cas d'échec) | requête réseau simulée en échec → badge **À vérifier** et ligne « Accès HTTP impossible… » |
 | Console navigateur | aucune erreur |
 
 ## 12. Captures
@@ -197,17 +204,17 @@ Tests réalisés le 23/11/2026 sur Windows 11 avec Docker Desktop.
 | `captures/03-test-http-headers.txt` | En-têtes HTTP renvoyés par Nginx |
 | `captures/04-test-http-body.html` | HTML servi par le conteneur |
 | `captures/05-verification-image-finale.txt` | Fichiers statiques présents, absence de Node/`node_modules`, taille |
-| `captures/06-application-navigateur.png` | L'application dans le navigateur (checklist repliée) |
+| `captures/06-application-navigateur.png` | L'application dans le navigateur, checklist visible directement |
 | `captures/07-verification-depot-github.txt` | Vérification du dépôt public (codes HTTP) |
-| `captures/08-checklist-validation.png` | Checklist dépliée avec critères cochés et commandes copiables |
+| `captures/08-checklist-validation.png` | Checklist toujours visible, contrôle rapide en OK et critères copiables |
 
 ### Application
 
 ![Application Mes tâches servie par le conteneur](captures/06-application-navigateur.png)
 
-### Checklist de validation
+### Checklist de validation et contrôle rapide
 
-![Checklist de validation du TP dépliée](captures/08-checklist-validation.png)
+![Checklist de validation du TP toujours visible](captures/08-checklist-validation.png)
 
 ## 13. Développement hors Docker (facultatif)
 
