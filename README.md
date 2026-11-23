@@ -93,6 +93,7 @@ TP-Docker-Multi-Stage/
 ├── index.html
 ├── package.json
 ├── package-lock.json
+├── verifier-readme.ps1            # Compare les chiffres du README au conteneur en marche
 └── vite.config.js
 ```
 
@@ -181,7 +182,16 @@ docker exec mon-app sh -c "find / -maxdepth 5 -type d -name node_modules"
 
 # Taille de l'image
 docker images mon-app-multistage:1.0
+
+# Tout vérifier d'un coup face au README
+powershell -NoProfile -ExecutionPolicy Bypass -File .\verifier-readme.ps1
 ```
+
+`verifier-readme.ps1` relit le README, interroge le conteneur `mon-app` en marche et compare
+la taille de l'image, le code HTTP, le `Content-Length`, la version de Nginx, puis les noms et
+les tailles des fichiers servis. Chaque ligne s'affiche en `[OK]` ou `[ECART]` ; le script sort
+avec le code `1` dès qu'un chiffre est périmé (et `2` si le conteneur est arrêté). Pratique
+juste après un rebuild : `docker build … ; powershell -File .\verifier-readme.ps1`.
 
 ## 10. Arrêter et supprimer
 
