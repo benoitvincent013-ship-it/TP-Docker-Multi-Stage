@@ -7,6 +7,25 @@ Dépôt GitHub : <https://github.com/benoitvincent013-ship-it/TP-Docker-Multi-St
 
 ---
 
+## Sommaire
+
+1. [L'application](#1-lapplication)
+2. [Technologies](#2-technologies)
+3. [Prérequis](#3-prérequis)
+4. [Structure du projet](#4-structure-du-projet)
+5. [Le Dockerfile multi-stage](#5-le-dockerfile-multi-stage)
+6. [Construire l'image](#6-construire-limage)
+7. [Lancer le conteneur](#7-lancer-le-conteneur)
+8. [Accéder à l'application](#8-accéder-à-lapplication)
+9. [Tester](#9-tester)
+10. [Arrêter et supprimer](#10-arrêter-et-supprimer)
+11. [Résultats des tests effectués](#11-résultats-des-tests-effectués)
+12. [Captures](#12-captures)
+13. [Développement hors Docker (facultatif)](#13-développement-hors-docker-facultatif)
+14. [Versionnement](#14-versionnement)
+
+---
+
 ## 1. L'application
 
 « Mes tâches » est une application monopage qui permet de :
